@@ -4,6 +4,8 @@
 
 **版本前提：目标是 Windows 上的 DSH Desktop 0.12.1 / Harness 0.2.1-rc.2，Node.js ≥22。原版 Desktop 0.12.1 拦截摄像头/麦克风的 `media` 权限，开启摄像头会遇到 `NotAllowedError`。须由桌面维护者另行合入随包的 [媒体权限补丁说明](<desktop/README.md>)；插件不会修改宿主。macOS、其他 DSH 版本、真实双机和真人手势全流程仍待验证。** 浏览器入口可用于进一步调试，发布检查不等于桌面实测。
 
+比如，AI 正在写代码，你瘫在椅子上刷手机，不想再凑到键盘前。看到它跑偏了，抬手握拳叫停；想补一句要求，就张掌口述、握拳结束，检查草稿后再比个 👍 发出去。这是插件设想的一个使用场景，前提是摄像头能看清手，并已开启识别、勾选“接入 DSH 动作”。
+
 ## 安装与首次开启
 
 - npm 包：[`dsh-gesture-control@0.1.5`](https://www.npmjs.com/package/dsh-gesture-control)。在 DSH 插件管理的安装入口填入这个精确包版本。
