@@ -1,0 +1,68 @@
+{
+  "name": "dsh-gesture-control",
+  "version": "0.1.5",
+  "description": "Single-hand camera gesture control for DSH sessions with optional voice input and paired-device control",
+  "license": "MIT",
+  "author": "dsh-gesture-control contributors",
+  "contributors": [{ "name": "AXTUT", "url": "https://github.com/AXTUT" }],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AXTUT/dsh-gesture-control.git"
+  },
+  "homepage": "https://github.com/AXTUT/dsh-gesture-control#readme",
+  "bugs": {
+    "url": "https://github.com/AXTUT/dsh-gesture-control/issues"
+  },
+  "keywords": ["dsh", "dsh-plugin", "deepseek-harness", "gesture-control", "mediapipe", "voice-input", "dualtransfer"],
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./client": "./lib/client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg"
+  },
+  "files": [
+    "lib",
+    "assets",
+    "tests",
+    "locale/*.json",
+    "icon.svg",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "THIRD_PARTY_NOTICES.md",
+    "RELEASE-NOTES.md",
+    "DISTRIBUTION-CHECKS.md",
+    "desktop"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": {
+    "dsh": "0.2.1-rc.2",
+    "node": ">=22"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-connection",
+        "@deepseek-ai/dsh-api-session-controller",
+        "@deepseek-ai/dsh-client-ui-session",
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-workspace",
+        "@deepseek-ai/dsh-client-ui-user-questions"
+      ]
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest"
+  }
+}

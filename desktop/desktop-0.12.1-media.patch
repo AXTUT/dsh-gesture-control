@@ -1,0 +1,23 @@
+--- a/out/main/index.js
++++ b/out/main/index.js
+@@ -1,1 +1,2 @@
++import { installGestureMediaPermissions } from "./media-permissions.mjs";
+ import { pathToFileURL, fileURLToPath } from "node:url";
+@@ -14740,16 +14741,3 @@
+   window.webContents.on("will-attach-webview", (event) => event.preventDefault());
+-  window.webContents.session.setPermissionCheckHandler(
+-    (_webContents, permission, requestingOrigin, details) => canGrantWindowPermission(
+-      permission,
+-      details.requestingUrl ?? requestingOrigin,
+-      details.isMainFrame
+-    )
+-  );
+-  window.webContents.session.setPermissionRequestHandler(
+-    (_webContents, permission, callback, details) => {
+-      callback(
+-        canGrantWindowPermission(permission, details.requestingUrl, details.isMainFrame)
+-      );
+-    }
+-  );
++  installGestureMediaPermissions(window, { dialog, isHarnessUrl });
+ }
