@@ -1,6 +1,6 @@
 {
   "name": "dsh-gesture-control",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Single-hand camera gesture control for DSH sessions with optional voice input and paired-device control",
   "license": "MIT",
   "author": "dsh-gesture-control contributors",

@@ -91,7 +91,7 @@ test('fixed gesture model bytes match the disclosed upstream artifact', () => {
 
 test('bundle, localized metadata and original icon are included in exports', () => {
   assert.equal(manifest.name, 'dsh-gesture-control');
-  assert.equal(manifest.version, '0.1.5');
+  assert.equal(manifest.version, '0.1.6');
   assert.equal(manifest.engines.dsh, '0.2.1-rc.2');
   assert.match(read('cordis.patch.yml'), /name: dsh-gesture-control/);
   for (const language of ['en', 'zh']) {
@@ -105,7 +105,7 @@ test('bundle, localized metadata and original icon are included in exports', () 
 });
 
 test('runtime, third-party notices, permissions patch and documented regression command exist', () => {
-  for (const p of ['assets/vision-worker.js', 'assets/vision_bundle.mjs', 'assets/MEDIAPIPE_LICENSE.txt', 'assets/MEDIAPIPE_README.md', 'desktop/README.md', 'desktop/media-permissions.mjs', 'desktop/desktop-0.12.1-media.patch', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASE-NOTES.md']) {
+  for (const p of ['assets/vision-worker.js', 'assets/vision_bundle.mjs', 'assets/MEDIAPIPE_LICENSE.txt', 'assets/MEDIAPIPE_README.md', 'desktop/README.md', 'desktop/media-permissions.mjs', 'desktop/desktop-0.12.1-media.patch', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'RELEASE-NOTES.md', 'tests/helpers/DSH-LICENSE.txt']) {
     assert.ok(fs.statSync(path.join(root, p)).isFile(), p);
   }
   assert.match(read('THIRD_PARTY_NOTICES.md'), /5997480830/);
@@ -117,4 +117,7 @@ test('privacy and Desktop prerequisites stay explicit in the README', () => {
   assert.match(read('README.md'), /远程服务/);
   assert.match(read('README.md'), /预构建运行包/);
   assert.match(read('README.md'), /仍待验证/);
+  const client = read('lib/client.js');
+  assert.match(client, /录音交给 DSH 当前所选语音提供方/);
+  assert.match(client, /远程模型会收到文本，此时尚未按 👍 提交/);
 });

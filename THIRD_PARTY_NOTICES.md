@@ -24,6 +24,10 @@
 - 模型权重是独立第三方产物，本项目 MIT 声明不覆盖权重。按上游维护者关于模型默认采用 Apache-2.0 的声明分发，并保留 [Apache-2.0 许可证](<assets/MEDIAPIPE_LICENSE.txt>)。依据：[MediaPipe COLLABORATOR schmidt-sebastian 于 2026-10-05 的说明](https://github.com/google-ai-edge/mediapipe/issues/6355#issuecomment-5997480830)：`Our source and the models (unless otherwise noted) are licensed under Apache2.`
 - [官方手势识别文档的 Models 节](https://developers.google.com/edge/mediapipe/solutions/vision/gesture_recognizer#models) 将该资源与 [Hand Gesture Classification 模型卡](https://storage.googleapis.com/mediapipe-assets/gesture_recognizer/model_card_hand_gesture_classification_with_faireness_2022.pdf) 关联。模型卡记录用途和限制，但未单列许可证；许可依据是前述上游通用声明，不是文档的 CC BY 页脚，也不是逐哈希的单独授权文件。若上游为该资源补充不同条款，后续分发应按该具体条款更新。
 
+## 分发测试中的 Connection 契约夹具
+
+[测试用 JSON 校验夹具](<tests/helpers/connection-contract.mjs>)按当前 `@deepseek-ai/dsh-client-connection@0.2.1-rc.2` 的 `lib/client.browser.js:1288-1316` 和 Host JSON 响应分支整理，保留逻辑、调整排版，测试 RpcId 品牌处理为 identity。上游包声明 MIT；原项目 [DeepSeek Harness MIT 许可证](https://github.com/deepseek-ai/deepseek-harness/blob/master/LICENSE) 的完整版权和许可随 [DSH-LICENSE.txt](<tests/helpers/DSH-LICENSE.txt>) 保留，Copyright (c) 2026 DeepSeek。该夹具仅用于模拟回归，不是实际 Host 连接，也未覆盖二进制响应。
+
 ## 宿主依赖与开发依赖
 
 React 从目标宿主加载，安装包不携带另一份 React。esbuild / @electron/asar 只用于开发构建和隔离验收，不是运行依赖；不含安装执行脚本。官方 SenseVoice 由 DSH 自己准备和缓存，未复制进本插件包。

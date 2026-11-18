@@ -1,14 +1,20 @@
 # dsh-gesture-control · DSH 手势控制
 
-用普通摄像头和单手手势操作 DSH 会话：握拳停止、张掌口述、拇指发送或撤销、数字答题、手势浏览会话。0.1.5 还提供基于 [DualTransfer](<https://github.com/AXTUT/dsh-plugin-dualtransfer-trial>) 配对的双端控制。第三方非官方插件，插件代码 MIT，免费使用；手势模型和 WASM 随包提供，识别在本机 Worker 中进行。
+用普通摄像头和单手手势操作 DSH 会话：握拳停止、张掌口述、拇指发送或撤销、数字答题、手势浏览会话。同时提供基于 [DualTransfer](<https://github.com/AXTUT/dsh-plugin-dualtransfer-trial>) 配对的双端控制。第三方非官方插件，插件代码 MIT，免费使用；手势模型和 WASM 随包提供，识别在本机 Worker 中进行。
 
 **版本前提：目标是 Windows 上的 DSH Desktop 0.12.1 / Harness 0.2.1-rc.2，Node.js ≥22。原版 Desktop 0.12.1 拦截摄像头/麦克风的 `media` 权限，开启摄像头会遇到 `NotAllowedError`。须由桌面维护者另行合入随包的 [媒体权限补丁说明](<desktop/README.md>)；插件不会修改宿主。macOS、其他 DSH 版本、真实双机和真人手势全流程仍待验证。** 浏览器入口可用于进一步调试，发布检查不等于桌面实测。
 
 比如，AI 正在写代码，你瘫在椅子上刷手机，不想再凑到键盘前。看到它跑偏了，抬手握拳叫停；想补一句要求，就张掌口述、握拳结束，检查草稿后再比个 👍 发出去。这是插件设想的一个使用场景，前提是摄像头能看清手，并已开启识别、勾选“接入 DSH 动作”。
 
+## 0.1.6 连接修复
+
+修复双端信令的 `connection: invalid server-response result`：Host 返回标准 `ok/value` 响应，Client 从 `value.submitted` 读取确认，并保留结构化错误。同步保留本地修复中的 Host RPC getter 兼容读取。此前的模块初始化修正、隐私告知和许可材料继续保留。
+
+**发送端与接收端都升级到 0.1.6，并完全退出重开 DSH。** 保留已有 DualTransfer 配对和会话绑定，重新发起连接、核对八位码后由接收端点允许。协议与分发回归通过不等于真实物理双机已连通；设备和真人全流程仍待验证。详见[发布说明](<RELEASE-NOTES.md>)。
+
 ## 安装与首次开启
 
-- npm 包：[`dsh-gesture-control@0.1.5`](https://www.npmjs.com/package/dsh-gesture-control)。在 DSH 插件管理的安装入口填入这个精确包版本。
+- npm 包：[`dsh-gesture-control@0.1.6`](https://www.npmjs.com/package/dsh-gesture-control)。在 DSH 插件管理的安装入口填入这个精确包版本。
 - 本地包：从 [GitHub Releases](https://github.com/AXTUT/dsh-gesture-control/releases) 下载 `.tgz`，在 DSH 插件管理的“安装包/本地包”入口选择它。启用 `gesture-control`。
 - 普通 `npm install` 只会安装文件，不会替 DSH 完成插件启用；无需在现用 profile 中手改配置。
 
@@ -59,7 +65,7 @@
 
 ## 发行内容与检查
 
-本仓库来自提供的 **0.1.5 预构建运行包**，没有原始 `src/`、开发构建器、锁文件或原项目测试集。本次首次公开发布修正了客户端 `poseNames.togglePeer` 在对象初始化前赋值的加载错误，补齐包元数据、原创图标、中英文本地化和分发级回归检查。版本保持 0.1.5；原始包与发布包摘要分别记录在 [发布说明](<RELEASE-NOTES.md>)。
+本仓库基于提供的 **0.1.5 预构建运行包**，没有原始 `src/`、开发构建器、锁文件或原项目测试集。首次公开发行修正客户端初始化错误并补齐分发材料；0.1.6 在公开版基础上合入已交付的双端信令 RPC 修复与 Host getter 兼容读取，保留既有隐私文案、许可和资源。来源与修改见[发布说明](<RELEASE-NOTES.md>)，最终 TGZ 摘要随各版 GitHub Release 发布。
 
 无需构建或安装开发依赖，Node.js ≥22 可在仓库运行：
 
@@ -68,7 +74,7 @@ npm test
 npm pack --ignore-scripts
 ```
 
-这些检查覆盖模块工厂加载、模拟 overlay 注册与卸载、宿主入口、资产哈希和发行结构。它们不替代真实 Host 挂载、摄像头、麦克风、真人中文口述、操作系统权限、macOS 或两台物理机验收。原项目的中文验收报告没有随提供的运行包交付，未据此宣称测试通过。
+这些检查覆盖模块工厂加载、模拟 overlay 注册与卸载、宿主入口、资产哈希、发行结构，以及实际插件 Host/Client 配合 Connection 解析器片段的 offer/answer 模拟和 RPC getter 夹具。所有消息服务均为模拟，不读取真实 profile 凭据，也不创建真实双机连接。它们不替代真实 Host 挂载、摄像头、麦克风、真人中文口述、操作系统权限、macOS 或两台物理机验收。原项目的中文验收报告没有随提供的运行包交付，未据此宣称测试通过。
 
 React 由宿主提供，不随包安装另一份。没有安装执行脚本、原生插件依赖或插件常驻进程。依赖目标版本的内部会话状态、侧栏 outline store 和题目 DOM，升级 DSH 后需重新验收；不承诺恢复 workflow。
 
