@@ -31,3 +31,10 @@
 ## 宿主依赖与开发依赖
 
 React 从目标宿主加载，安装包不携带另一份 React。esbuild / @electron/asar 只用于开发构建和隔离验收，不是运行依赖；不含安装执行脚本。官方 SenseVoice 由 DSH 自己准备和缓存，未复制进本插件包。
+
+## 兼容测试中的 semver
+
+- `semver` **7.7.3**，ISC，Copyright (c) Isaac Z. Schlueter and Contributors。[原 npm 版本](https://registry.npmjs.org/semver/7.7.3)，[固定 tarball](https://registry.npmjs.org/semver/-/semver-7.7.3.tgz)。原包 SHA256 `b49572086d1e04c9a014cafc232685cc74570320d4e7091c2e30a7138c8522bd`，下载时已核对 npm SHA512 integrity。
+- [tests/helpers/semver/LICENSE](<tests/helpers/semver/LICENSE>) 保留完整 ISC 许可；同目录 49 个原字节文件仅供兼容测试使用，未修改第三方逻辑，不含 CLI、开发依赖或安装执行。
+- 它不是插件运行依赖，不执行其嵌套 package.json 的开发测试/lint 脚本。用于校验 DSH `includePrerelease:true` 与默认 semver 两种门槛；不据此声称真实 Host 或设备已通过。
+- 上文 `0.2.1-rc.2` 是原参考与 Connection 夹具来源版本；当前插件支持范围及新版接口核验另见 [COMPATIBILITY.md](<COMPATIBILITY.md>)。

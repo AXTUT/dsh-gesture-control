@@ -49,10 +49,11 @@ test('client registers its overlay and disposes mock effects without opening dev
   let overlay;
   const disposers = [];
   const services = {
-    sessions: { list: state({ byId: {} }) },
-    uiSession: { current: state(null), sessionStatus: state(new Map()) },
+    sessions: { list: state({ ids: [], byId: {} }) },
+    uiSession: { adapter: { current: state(null) }, sessionStatus: state(new Map()) },
     conversation: {},
-    uiWorkspace: { workspaces: { list: state([]) } },
+    uiWorkspace: {},
+    workspaces: { list: state({ items: [], pinnedSessionIds: [], archivedSessionIds: [] }) },
     connection: { state: state('connected') },
     slots: {
       entries() { return []; },
@@ -91,8 +92,8 @@ test('fixed gesture model bytes match the disclosed upstream artifact', () => {
 
 test('bundle, localized metadata and original icon are included in exports', () => {
   assert.equal(manifest.name, 'dsh-gesture-control');
-  assert.equal(manifest.version, '0.1.6');
-  assert.equal(manifest.engines.dsh, '0.2.1-rc.2');
+  assert.equal(manifest.version, '0.1.7');
+  assert.equal(manifest.engines.dsh, '>=0.2.1-rc.2 <0.2.2-0 || >=0.2.2-rc.1 <0.2.3-0');
   assert.match(read('cordis.patch.yml'), /name: dsh-gesture-control/);
   for (const language of ['en', 'zh']) {
     const locale = JSON.parse(read(`locale/${language}.json`));

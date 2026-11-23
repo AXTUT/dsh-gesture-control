@@ -1,6 +1,6 @@
 {
   "meta": {
     "title": "Gesture Control",
-    "description": "Single-hand camera gestures for DSH sessions, with optional local speech recognition and paired-device control. Desktop media-permission patch required."
+    "description": "Single-hand camera gestures for DSH 0.2.1/0.2.2 sessions, with optional speech recognition and paired-device control. Desktop media permissions are required; old Desktop 0.12.1 needs its matching patch."
   }
 }

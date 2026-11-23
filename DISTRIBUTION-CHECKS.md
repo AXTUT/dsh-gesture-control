@@ -1,5 +1,16 @@
 # 分发检查记录
 
+## 0.1.7 · 2026-11-23
+
+环境：macOS、Node.js 24.21.0。实际发行树运行 **59/59** 项：原有 7 项分发、14 项 RPC/getter、新增 27 项版本门槛检查及 11 项 Adapter 契约形状回归。
+
+- semver 7.7.3 原库在默认模式和 DSH 实际采用的 `includePrerelease:true` 下核对 26 个版本；另保留旧精确锁版拒绝 0.2.2、无上界写法误纳 0.2.3 alpha 的负对照。未来 rc/stable 用例验证的是范围策略，不是相应未来 Host。
+- 公共 workspaces/adapter.current 不依赖私有字段；legacy 可见性限制保留且隐藏工作区不会落入未分组；caller-projected ids、防归档/子会话/非当前空白、置顶、手动及树顺序继续检查。
+- 订阅释放、retain/release、`sending` 输入锁、普通草稿可观测回执和原审批阻断使用隔离服务夹具，不开启设备、不点击审批、不读真实 profile。
+- 官方 0.2.1-rc.2 与 0.2.2-rc.1–rc.5 已发包的所用接口静态核对；未逐版在真实 Host 装载。完整范围与公开来源见 [COMPATIBILITY.md](<COMPATIBILITY.md>)。
+
+发布时还需对最终 TGZ 解包重跑上述检查、语法和固定资产哈希，并对 GitHub/npm 下载逐字节比对；结果随该 Release 验证报告记录。以下旧版结果保持为历史，不作为新版实机证明。
+
 ## 0.1.6 · 2026-11-17
 
 环境：Node.js 24.21.0、macOS。目标运行版仍为 Windows Desktop 0.12.1 / Harness 0.2.1-rc.2，这不表示 macOS 功能验收。

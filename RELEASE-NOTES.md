@@ -1,3 +1,22 @@
+# 0.1.7 · DSH 0.2.2 兼容
+
+## 本次修改
+
+- 将精确的 Harness `0.2.1-rc.2` 安装门槛改为有界系列范围：`>=0.2.1-rc.2 <0.2.2-0 || >=0.2.2-rc.1 <0.2.3-0`。支持两个限定 minor 的后续 rc/stable 策略，排除 0.2.2 alpha 和整个 0.2.3 系列；未来版本不等于逐版实机验收。
+- 修正会话列表对 `isSessionVisible/isWorkspaceVisible` 等非官方扩展的强制依赖，改用公共 `workspaces` 与 `uiSession.adapter.current`，扩展存在时仍保留过滤。该接口失配在官方 0.2.1-rc.2 已存在，不是 0.2.2 删除 API。
+- 将 0.2.2 新增的 `sending` 阶段纳入输入锁，避免在此阶段尝试发送草稿或插入转写；不据此声称旧版已发生数据丢失或重复发送。
+- 新增真实 semver 双模式矩阵及公共/legacy 服务形状回归，保留原有权限、RPC、订阅清理、retain/release 和资源检查。原 0.1.6 的信令响应修复继续保留。
+
+## 验证与升级
+
+官方 0.2.1-rc.2 与 0.2.2-rc.1–rc.5 的所用公共契约已静态核对；本地 Node.js 24.21.0 运行 59/59 项分发、协议及兼容夹具。精确范围、复跑方法和未覆盖项见 [COMPATIBILITY.md](<COMPATIBILITY.md>)、[DISTRIBUTION-CHECKS.md](<DISTRIBUTION-CHECKS.md>)。截至检查时官方最新为 0.2.2-rc.5，尚无 0.2.2 stable。
+
+在 DSH 插件管理器安装 `dsh-gesture-control@0.1.7`。双端建议同版升级，保留已有配对/绑定，按管理器提示重载或完全退出重开。摄像头、麦克风、真实 Host、Windows/macOS、真人与物理双机全流程仍待验证；桌面媒体权限须由相应 Desktop 版本提供。插件不修改宿主，不绕过原审批。
+
+插件、模型、WASM、SDK 和原有隐私数据流说明保留；无新增运行依赖或安装脚本。semver 7.7.3 仅随测试交付并保留 ISC 许可。0.1.5/0.1.6 的历史包和 tag 不替换。
+
+---
+
 # 0.1.6 · Dual 连接 RPC 修复
 
 修复双端控制协商时的 `connection: invalid server-response result`。旧 Host 已提交本机信令消息，却返回裸 `{submitted:true}`；DSH Connection 要求 `{ok:true,value}`，而旧 Client 也从错误层级读取 `submitted`。

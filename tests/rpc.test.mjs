@@ -138,7 +138,7 @@ test('Offer and answer round-trip through actual plugin handler + installed-pars
 test('Display manifest resources and client version remain coherent',async()=>{
   const manifest=JSON.parse(await readFile(path.join(packageDir,'package.json'),'utf8'));
   assert.ok(clientSource.includes(`var version = "${manifest.version}";`));
-  assert.equal(manifest.engines.dsh,'0.2.1-rc.2');
+  assert.equal(manifest.engines.dsh,'>=0.2.1-rc.2 <0.2.2-0 || >=0.2.2-rc.1 <0.2.3-0');
   assert.equal(manifest.exports['./icon'],'./icon.svg');
   for(const name of ['icon.svg','locale/en.json','locale/zh.json'])assert.ok((await readFile(path.join(packageDir,name))).length>0);
   assert.equal(manifest.scripts?.postinstall,undefined);
