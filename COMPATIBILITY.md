@@ -1,4 +1,6 @@
-# DSH 兼容说明 · 插件 0.1.7
+# DSH 兼容说明 · 插件 0.1.8
+
+0.1.8 仅新增小窗显示态和独立手势说明；下述 0.1.7 的版本门槛、业务适配和 API 核验继续保留。新 locale 服务为可选，缺失时回退中文，不增加安装注入依赖。
 
 ## 安装范围
 
@@ -16,7 +18,7 @@
 
 对官方 **0.2.1-rc.2、0.2.2-rc.1–rc.5** 已发布 npm 包的所用 public types/实现做静态核对：Host Connection RPC/路由、profile context、speech、LLM/default model、Session retain/binding/prompt/cancel 和 Slot 注册没有发现新的删项。这不是逐版真实 Loader 或设备验收；0.2.1-rc.3–rc.5 也没有被写成逐包全审。
 
-本版另修正两个具体问题：
+0.1.7 已修正、0.1.8 继续保留的两个具体问题：
 
 1. **既有 Workspace 接口失配。** 旧版无条件调用非官方 `isSessionVisible/isWorkspaceVisible`，官方旧 rc.2 也没有这两个方法。优先改用 `ctx.get('workspaces')`、`uiSession.adapter.current`；legacy 可见性扩展若存在仍执行。保留 caller-projected ids、归档/子会话/非当前空白排除、侧栏排序与订阅清理，隐藏工作区不会重新落入未分组。列表按既有规则重建，不保证等同当前屏幕上经过折叠、搜索和 overflow 后的每一行。
 2. **0.2.2 新增 `sending` 状态。** 输入锁包括该状态，发送中不再尝试发送草稿或插入转写。没有将该遗漏夸大为已证实的数据丢失或重复提交；DSH 内部也有冻结保护。
@@ -29,7 +31,7 @@
 npm test
 ```
 
-59 项分发、RPC/getter 和兼容夹具：27 项真实 semver 门槛检查、11 项 Adapter 契约形状回归、原有 21 项。semver 用例同时检查默认模式与 DSH 的 includePrerelease 模式；`rc.99`/stable 等未来用例只证明范围表达式。公共/legacy 列表、成员过滤、订阅卸载、retain/release、sending、普通回执和审批阻断均为隔离服务夹具。
+68 项：保留 59 项分发、RPC/getter 和兼容夹具（27 项真实 semver 门槛检查、11 项 Adapter 契约形状回归、原有 21 项），另加 9 项呈现态、预览流重挂、可选语言/卸载、键盘/焦点和手势说明夹具。semver 用例同时检查默认模式与 DSH 的 includePrerelease 模式；`rc.99`/stable 等未来用例只证明范围表达式。公共/legacy 列表、成员过滤、订阅卸载、retain/release、sending、普通回执和审批阻断均为隔离服务夹具。
 
 测试不读取用户 profile 凭据，不运行真实模型、不启动相机/麦克风，不建立真实物理双机。最终 TGZ 解包后的重复检查与 GitHub/npm 同包哈希，见同版 Release 的验证材料。
 
